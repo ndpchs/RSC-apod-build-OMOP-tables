@@ -6,6 +6,7 @@
 
 -- make sure database and schema exist before creating tables
 
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).person;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).person (
 			person_id integer NOT NULL,
 			gender_concept_id integer NOT NULL,
@@ -26,6 +27,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).person (
 			ethnicity_source_value varchar(50) NULL,
 			ethnicity_source_concept_id integer NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).observation_period;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).observation_period (
 			observation_period_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -33,6 +35,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).observation_period (
 			observation_period_end_date date NOT NULL,
 			period_type_concept_id integer NOT NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).visit_occurrence;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).visit_occurrence (
 			visit_occurrence_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -52,6 +55,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).visit_occurrence (
 			discharged_to_source_value varchar(50) NULL,
 			preceding_visit_occurrence_id integer NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).visit_detail;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).visit_detail (
 			visit_detail_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -73,6 +77,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).visit_detail (
 			parent_visit_detail_id integer NULL,
 			visit_occurrence_id integer NOT NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).condition_occurrence;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).condition_occurrence (
 			condition_occurrence_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -91,6 +96,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).condition_occurrence (
 			condition_source_concept_id integer NULL,
 			condition_status_source_value varchar(50) NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).drug_exposure;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).drug_exposure (
 			drug_exposure_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -116,6 +122,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).drug_exposure (
 			route_source_value varchar(50) NULL,
 			dose_unit_source_value varchar(50) NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).procedure_occurrence;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).procedure_occurrence (
 			procedure_occurrence_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -134,6 +141,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).procedure_occurrence (
 			procedure_source_concept_id integer NULL,
 			modifier_source_value varchar(50) NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).device_exposure;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).device_exposure (
 			device_exposure_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -155,6 +163,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).device_exposure (
 			unit_source_value varchar(50) NULL,
 			unit_source_concept_id integer NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).measurement;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).measurement (
 			measurement_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -180,6 +189,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).measurement (
 			measurement_event_id integer NULL,
 			meas_event_field_concept_id integer NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).observation;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).observation (
 			observation_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -203,6 +213,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).observation (
 			observation_event_id integer NULL,
 			obs_event_field_concept_id integer NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).death;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).death (
 			person_id integer NOT NULL,
 			death_date date NOT NULL,
@@ -212,6 +223,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).death (
 			cause_source_value varchar(50) NULL,
 			cause_source_concept_id integer NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).note;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).note (
 			note_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -230,6 +242,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).note (
 			note_event_id integer NULL,
 			note_event_field_concept_id integer NULL );
 --HINT DISTRIBUTE ON RANDOM
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).note_nlp;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).note_nlp (
 			note_nlp_id integer NOT NULL,
 			note_id integer NOT NULL,
@@ -246,6 +259,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).note_nlp (
 			term_temporal varchar(50) NULL,
 			term_modifiers varchar(2000) NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).specimen;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).specimen (
 			specimen_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -263,6 +277,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).specimen (
 			anatomic_site_source_value varchar(50) NULL,
 			disease_status_source_value varchar(50) NULL );
 --HINT DISTRIBUTE ON RANDOM
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).fact_relationship;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).fact_relationship (
 			domain_concept_id_1 integer NOT NULL,
 			fact_id_1 integer NOT NULL,
@@ -270,6 +285,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).fact_relationship (
 			fact_id_2 integer NOT NULL,
 			relationship_concept_id integer NOT NULL );
 --HINT DISTRIBUTE ON RANDOM
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).location;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).location (
 			location_id integer NOT NULL,
 			address_1 varchar(50) NULL,
@@ -284,6 +300,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).location (
 			latitude float NULL,
 			longitude float NULL );
 --HINT DISTRIBUTE ON RANDOM
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).care_site;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).care_site (
 			care_site_id integer NOT NULL,
 			care_site_name varchar(255) NULL,
@@ -292,6 +309,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).care_site (
 			care_site_source_value varchar(50) NULL,
 			place_of_service_source_value varchar(50) NULL );
 --HINT DISTRIBUTE ON RANDOM
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).provider;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).provider (
 			provider_id integer NOT NULL,
 			provider_name varchar(255) NULL,
@@ -307,6 +325,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).provider (
 			gender_source_value varchar(50) NULL,
 			gender_source_concept_id integer NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).payer_plan_period;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).payer_plan_period (
 			payer_plan_period_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -326,6 +345,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).payer_plan_period (
 			stop_reason_source_value varchar(50) NULL,
 			stop_reason_source_concept_id integer NULL );
 --HINT DISTRIBUTE ON RANDOM
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).cost;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).cost (
 			cost_id integer NOT NULL,
 			cost_event_id integer NOT NULL,
@@ -350,6 +370,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).cost (
 			drg_concept_id integer NULL,
 			drg_source_value varchar(3) NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).drug_era;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).drug_era (
 			drug_era_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -359,6 +380,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).drug_era (
 			drug_exposure_count integer NULL,
 			gap_days integer NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).dose_era;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).dose_era (
 			dose_era_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -368,6 +390,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).dose_era (
 			dose_era_start_date date NOT NULL,
 			dose_era_end_date date NOT NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).condition_era;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).condition_era (
 			condition_era_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -376,6 +399,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).condition_era (
 			condition_era_end_date date NOT NULL,
 			condition_occurrence_count integer NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).episode;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).episode (
 			episode_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -391,11 +415,13 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).episode (
 			episode_source_value varchar(50) NULL,
 			episode_source_concept_id integer NULL );
 --HINT DISTRIBUTE ON RANDOM
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).episode_event;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).episode_event (
 			episode_id integer NOT NULL,
 			event_id integer NOT NULL,
 			episode_event_field_concept_id integer NOT NULL );
 --HINT DISTRIBUTE ON RANDOM
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).metadata;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).metadata (
 			metadata_id integer NOT NULL,
 			metadata_concept_id integer NOT NULL,
@@ -407,6 +433,7 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).metadata (
 			metadata_date date NULL,
 			metadata_datetime datetime NULL );
 --HINT DISTRIBUTE ON RANDOM
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).cdm_source;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).cdm_source (
 			cdm_source_name varchar(255) NOT NULL,
 			cdm_source_abbreviation varchar(25) NOT NULL,
@@ -420,12 +447,14 @@ CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).cdm_source (
 			cdm_version_concept_id integer NOT NULL,
 			vocabulary_version varchar(20) NOT NULL );
 --HINT DISTRIBUTE ON RANDOM
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).cohort;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).cohort (
 			cohort_definition_id integer NOT NULL,
 			subject_id integer NOT NULL,
 			cohort_start_date date NOT NULL,
 			cohort_end_date date NOT NULL );
 --HINT DISTRIBUTE ON RANDOM
+DROP TABLE IF EXISTS $(CDM_DATABASE).$(CDM_SCHEMA).cohort_definition;
 CREATE TABLE $(CDM_DATABASE).$(CDM_SCHEMA).cohort_definition (
 			cohort_definition_id integer NOT NULL,
 			cohort_definition_name varchar(255) NOT NULL,
