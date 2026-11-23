@@ -1,4 +1,4 @@
-# rsc_build_cdm_tables_sql_server
+# RSC-apod-build-OMOP-tables
 
 This contains sql code to build cdm tables and load in vocab in two different ways
 
